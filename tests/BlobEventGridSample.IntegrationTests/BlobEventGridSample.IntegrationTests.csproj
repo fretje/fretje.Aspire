@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Testing" />
+    <PackageReference Include="Azure.Storage.Blobs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\fretje.Aspire.Hosting.LocalEventing\fretje.Aspire.Hosting.LocalEventing.csproj" />
+    <ProjectReference Include="..\..\samples\BlobEventGridSample\AppHost\BlobEventGridSample.AppHost.csproj" />
+  </ItemGroup>
+
+</Project>

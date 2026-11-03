@@ -1,0 +1,73 @@
+name: Publish
+
+# Publishes to nuget.org (Trusted Publishing, no API key) and creates a GitHub release
+# when a version tag is pushed:
+#   git tag v1.0.0 && git push origin v1.0.0
+#   git tag v1.1.0-preview.1 && git push origin v1.1.0-preview.1   (pre-release)
+#
+# One-time setup: see "Releasing" in CONTRIBUTING.md.
+# The workflow file name (publish.yml) must match the nuget.org trusted publishing policy.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Skip publishing to nuget.org'
+        required: false
+        type: boolean
+        default: false
+
+permissions: {}
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  TESTINGPLATFORM_TELEMETRY_OPTOUT: 1
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release
+      id-token: write # request the OIDC token NuGet/login exchanges for a temporary API key
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # MinVer derives the version from the tag
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test
+        run: dotnet test tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack src/fretje.Aspire.Hosting.LocalEventing -c Release -o artifacts
+
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Create GitHub release
+        run: |
+          flags=""
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then flags="--prerelease"; fi
+          gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg --generate-notes --title "$GITHUB_REF_NAME" $flags
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,33 @@
+<Solution>
+  <Folder Name="/.root/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="LICENSE" />
+    <File Path="CHANGELOG.md" />
+    <File Path="CONTRIBUTING.md" />
+  </Folder>
+  <Folder Name="/.github workflows/">
+    <File Path=".github/workflows/ci.yml" />
+    <File Path=".github/workflows/publish.yml" />
+  </Folder>
+  <Folder Name="/samples/" />
+  <Folder Name="/samples/BlobEventGridSample/">
+    <Project Path="samples/BlobEventGridSample/AppHost/BlobEventGridSample.AppHost.csproj" />
+    <Project Path="samples/BlobEventGridSample/Client/BlobEventGridSample.Client.csproj" />
+    <Project Path="samples/BlobEventGridSample/Functions/BlobEventGridSample.Functions.csproj" />
+    <Project Path="samples/BlobEventGridSample/ServiceDefaults/BlobEventGridSample.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/fretje.Aspire.Hosting.LocalEventing/fretje.Aspire.Hosting.LocalEventing.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj" />
+    <Project Path="tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj" />
+    <File Path="tests/Directory.Build.props" />
+  </Folder>
+</Solution>

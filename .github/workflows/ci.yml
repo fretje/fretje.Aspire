@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  TESTINGPLATFORM_TELEMETRY_OPTOUT: 1
+
+jobs:
+  build:
+    name: Build & test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # MinVer needs the full history and tags
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      # Unit tests only. The BlobEventGridSample.IntegrationTests project requires
+      # Docker (Azurite + Event Grid emulator containers) and is run separately.
+      - name: Test
+        run: dotnet test tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-${{ matrix.os }}
+          path: TestResults/**/*.trx
+          if-no-files-found: ignore
+
+  integration:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj
+
+      - name: Build
+        run: dotnet build tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj -c Release --no-restore
+
+      - name: Install Azure Functions Core Tools
+        run: npm install -g azure-functions-core-tools@4 --allow-scripts=azure-functions-core-tools
+
+      - name: Test
+        run: dotnet test tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-integration
+          path: TestResults/**/*.trx
+          if-no-files-found: ignore
+
+  pack:
+    name: Pack
+    needs: [build, integration]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Pack
+        run: dotnet pack src/fretje.Aspire.Hosting.LocalEventing -c Release -o artifacts --no-restore
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-package
+          path: artifacts/*.nupkg
+          if-no-files-found: error
