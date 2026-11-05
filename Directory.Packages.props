@@ -7,7 +7,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.12.1" />
     <PackageVersion Include="Roslynator.Analyzers" Version="5.0.1" />
     <PackageVersion Include="Roslynator.CodeFixes" Version="5.0.1" />
-    <PackageVersion Include="StyleCop.Analyzers" Version="1.3.133-beta" />
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.3.171-beta" />
   </ItemGroup>
   <ItemGroup Label="Aspire">
     <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.6.4" />
