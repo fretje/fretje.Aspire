@@ -23,7 +23,7 @@ Requires .NET SDK 10.0+.
 
 ## Usage
 
-In your Aspire AppHost (`Program.cs`):
+In your Aspire AppHost (`AppHost.cs`):
 
 ```csharp
 using fretje.Aspire.Hosting.LocalEventing;

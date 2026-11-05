@@ -1,4 +1,5 @@
 <Project>
+  
   <PropertyGroup>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
@@ -19,6 +20,7 @@
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <!-- Reproducible builds on CI -->
     <Deterministic>true</Deterministic>
@@ -35,4 +37,5 @@
     <PackageReference Include="Roslynator.CodeFixes" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" />
   </ItemGroup>
+  
 </Project>
