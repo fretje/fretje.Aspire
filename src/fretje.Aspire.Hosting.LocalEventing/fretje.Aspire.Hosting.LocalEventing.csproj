@@ -7,18 +7,8 @@
     <PackageId>fretje.Aspire.Hosting.LocalEventing</PackageId>
     <Description>Local EventGrid emulator and blob storage event proxy for Aspire. Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local EventGrid emulator.</Description>
     <PackageTags>aspire;azure;storage;blob;eventgrid;emulator;local-development</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/fretje/fretje.Aspire</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-      <!-- MinVer configuration -->
-      <MinVerTagPrefix>v</MinVerTagPrefix>
-      <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
-    </PropertyGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Azure.Storage" />
@@ -26,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
