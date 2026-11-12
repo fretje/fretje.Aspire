@@ -10,8 +10,8 @@
     <PackageVersion Include="StyleCop.Analyzers" Version="1.3.171-beta" />
   </ItemGroup>
   <ItemGroup Label="Aspire">
-    <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.6.4" />
-    <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="13.6.4" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="13.6.5" />
     <PackageVersion Include="Aspire.Hosting.Testing" Version="13.6.4" />
   </ItemGroup>
   <ItemGroup Label="MinVer">
