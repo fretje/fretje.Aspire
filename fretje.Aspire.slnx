@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/.root/">
-    <File Path=".editorconfig" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
     <File Path="global.json" />
@@ -26,8 +25,7 @@
     <Project Path="src/fretje.Aspire.Hosting.LocalEventing/fretje.Aspire.Hosting.LocalEventing.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj" />
     <Project Path="tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj" />
-    <File Path="tests/Directory.Build.props" />
+    <Project Path="tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj" />
   </Folder>
 </Solution>

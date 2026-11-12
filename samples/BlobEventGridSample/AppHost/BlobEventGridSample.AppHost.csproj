@@ -1,9 +1,11 @@
-﻿<Project Sdk="Aspire.AppHost.Sdk/13.6.4">
-
+﻿<Project Sdk="Aspire.AppHost.Sdk">
+  <Sdk Name="fretje.NET.Sdk" />
+  
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <AspireUseCliBundle>true</AspireUseCliBundle>
+    <NoWarn>$(NoWarn);RCS1090</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

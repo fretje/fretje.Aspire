@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  
+<Project Sdk="fretje.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <IsAspireSharedProject>true</IsAspireSharedProject>
-    </PropertyGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -18,5 +18,5 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
   </ItemGroup>
-  
+
 </Project>

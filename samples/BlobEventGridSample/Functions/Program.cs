@@ -12,4 +12,4 @@ builder.Services.AddOpenTelemetry()
 
 builder.ConfigureFunctionsWebApplication();
 
-builder.Build().Run();
+await builder.Build().RunAsync();

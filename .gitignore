@@ -4,6 +4,7 @@
 artifacts/
 *.nupkg
 *.snupkg
+*.binlog
 
 # IDEs
 .vs/

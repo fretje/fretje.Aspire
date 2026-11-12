@@ -55,7 +55,7 @@ public class ProxiedBlobConnectionStringTests
     [Fact]
     public void Rewrite_NullBlobsConnectionString_ThrowsInvalidOperationException()
     {
-        var action = () => ProxiedBlobConnectionString.Rewrite(null, "8080");
+        var action = () => ProxiedBlobConnectionString.Rewrite(blobsConnectionString: null, "8080");
 
         var ex = action.ShouldThrow<InvalidOperationException>();
         ex.Message.ShouldContain("blobs connection string");
@@ -65,7 +65,7 @@ public class ProxiedBlobConnectionStringTests
     public void Rewrite_NullProxyPort_ThrowsInvalidOperationException()
     {
         const string input = "BlobEndpoint=https://127.0.0.1:10000/devstoreaccount1;AccountKey=secret";
-        var action = () => ProxiedBlobConnectionString.Rewrite(input, null);
+        var action = () => ProxiedBlobConnectionString.Rewrite(input, proxyPort: null);
 
         var ex = action.ShouldThrow<InvalidOperationException>();
         ex.Message.ShouldContain("proxy port");

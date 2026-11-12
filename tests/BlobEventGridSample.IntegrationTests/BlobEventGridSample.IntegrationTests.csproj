@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="fretje.NET.Sdk.Test">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\fretje.Aspire.Hosting.LocalEventing\fretje.Aspire.Hosting.LocalEventing.csproj" />
     <ProjectReference Include="..\..\samples\BlobEventGridSample\AppHost\BlobEventGridSample.AppHost.csproj" />
   </ItemGroup>
 

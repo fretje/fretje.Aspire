@@ -16,6 +16,9 @@ internal sealed partial class ProxiedBlobConnectionString(
 
     public IEnumerable<object> References => [blobs, proxyEndpoint];
 
+    [GeneratedRegex(@"BlobEndpoint=https?://[^/]+(/[^;]*)", RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 1000)]
+    private static partial Regex BlobEndpointRegex { get; }
+
     public async ValueTask<string?> GetValueAsync(CancellationToken cancellationToken = default) =>
         Rewrite(
             await blobs.GetValueAsync(cancellationToken).ConfigureAwait(false),
@@ -38,15 +41,12 @@ internal sealed partial class ProxiedBlobConnectionString(
             throw new InvalidOperationException("Failed to get blobs proxy port");
         }
 
-        if (!BlobEndpointRegex().IsMatch(blobsConnectionString))
+        if (!BlobEndpointRegex.IsMatch(blobsConnectionString))
         {
             throw new InvalidOperationException("BlobEndpoint not found in blobs connection string");
         }
 
         // 127.0.0.1 instead of localhost: the azure sdk needs this to work properly with the emulator
-        return BlobEndpointRegex().Replace(blobsConnectionString, $"BlobEndpoint=http://127.0.0.1:{proxyPort}$1");
+        return BlobEndpointRegex.Replace(blobsConnectionString, $"BlobEndpoint=http://127.0.0.1:{proxyPort}$1");
     }
-
-    [GeneratedRegex(@"BlobEndpoint=https?://[^/]+(/[^;]*)")]
-    private static partial Regex BlobEndpointRegex();
 }

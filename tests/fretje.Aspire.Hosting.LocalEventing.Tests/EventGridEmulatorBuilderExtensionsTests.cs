@@ -84,6 +84,7 @@ public class EventGridEmulatorBuilderExtensionsTests
         public string Name { get; } = name;
         public ResourceAnnotationCollection Annotations { get; } = [];
 
-        public IResourceBuilder<IResourceWithEndpoints> GetEndpoint(string? name = null) => throw new NotImplementedException();
+        public IResourceBuilder<IResourceWithEndpoints> GetEndpoint(string? name = null) =>
+            throw new NotSupportedException();
     }
 }

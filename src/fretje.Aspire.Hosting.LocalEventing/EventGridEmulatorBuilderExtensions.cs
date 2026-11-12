@@ -13,13 +13,13 @@ public static class EventGridEmulatorBuilderExtensions
     /// <param name="name">The name of the resource.</param>
     /// <param name="port">Fixed host port, or null for a dynamic one.</param>
     public static IResourceBuilder<EventGridEmulatorResource> AddEventGridEmulator(
-        this IDistributedApplicationBuilder builder, string name, int? port = EventGridEmulatorResource.ContainerPort)
+        this IDistributedApplicationBuilder builder, string name, int? port = EventGridEmulatorResource._containerPort)
     {
         EventGridEmulatorResource resource = new(name);
 
         return builder.AddResource(resource)
             .WithImage(_defaultImage, _defaultTag)
-            .WithHttpEndpoint(port, EventGridEmulatorResource.ContainerPort, EventGridEmulatorResource.HttpEndpointName)
+            .WithHttpEndpoint(port, EventGridEmulatorResource._containerPort, EventGridEmulatorResource._httpEndpointName)
             .ExcludeFromManifest() // local-dev only
             .WithEnvironment(context =>
             {
@@ -50,9 +50,7 @@ public static class EventGridEmulatorBuilderExtensions
             .ExcludeFromManifest();
     }
 
-    /// <summary>
-    /// Forwards the topic's events to an arbitrary webhook on <paramref name="target"/>.
-    /// </summary>
+    /// <summary>Forwards the topic's events to an arbitrary webhook on <paramref name="target"/>.</summary>
     public static IResourceBuilder<EventGridTopicResource> WithWebhookSubscription(
         this IResourceBuilder<EventGridTopicResource> topic,
         IResourceBuilder<IResourceWithEndpoints> target,

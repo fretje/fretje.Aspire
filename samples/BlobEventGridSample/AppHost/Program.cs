@@ -28,11 +28,11 @@ var blobsProxy = builder.AddBlobStorageEventProxy("blobsproxy", blobs)
     .WithPersistentLifetime();
 
 // External client that uploads files to blob storage
-if (builder.Configuration.GetValue("IncludeClientProjects", true))
+if (builder.Configuration.GetValue("IncludeClientProjects", defaultValue: true))
 {
     builder.AddProject<Projects.BlobEventGridSample_Client>("client")
         .WithReference(blobsProxy)
         .WaitFor(blobsProxy);
 }
 
-builder.Build().Run();
+await builder.Build().RunAsync();

@@ -1,4 +1,3 @@
-using System.Globalization;
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Azure;
@@ -10,9 +9,7 @@ public static class BlobStorageEventProxyBuilderExtensions
     private const string _defaultImage = "vincentfenet/blob-storage-notify-proxy";
     private const string _defaultTag = "1.2";
 
-    /// <summary>
-    /// Adds a blob proxy in front of the (emulated) Azure Storage account that <paramref name="blobs"/> belongs to.
-    /// </summary>
+    /// <summary>Adds a blob proxy in front of the (emulated) Azure Storage account that <paramref name="blobs"/> belongs to.</summary>
     /// <param name="builder">The distributed application builder.</param>
     /// <param name="name">The name of the resource.</param>
     /// <param name="blobs">The blobs resource, e.g. <c>storage.AddBlobs("blobs")</c>; its connection string is what gets proxied.</param>
@@ -29,8 +26,8 @@ public static class BlobStorageEventProxyBuilderExtensions
         return builder.AddResource(resource)
             .WithImage(_defaultImage, _defaultTag)
             .WithArgs("azurite-to-azure-event-grid")
-            .WithHttpEndpoint(port, BlobStorageEventProxyResource.ContainerPort, BlobStorageEventProxyResource.HttpEndpointName)
-            .WithEnvironment("PROXY_PORT", BlobStorageEventProxyResource.ContainerPort.ToString(CultureInfo.InvariantCulture))
+            .WithHttpEndpoint(port, BlobStorageEventProxyResource._containerPort, BlobStorageEventProxyResource._httpEndpointName)
+            .WithEnvironment("PROXY_PORT", BlobStorageEventProxyResource._containerPort.ToString(CultureInfo.InvariantCulture))
             .WithEnvironment("TARGET_SERVER", storage.GetEndpoint("blob"))
             .WaitFor(storage)
             .ExcludeFromManifest(); // local-dev only

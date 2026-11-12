@@ -1,22 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="fretje.NET.Sdk/1.0.0">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
 
-    <!-- Package metadata -->
     <PackageId>fretje.Aspire.Hosting.LocalEventing</PackageId>
     <Description>Local EventGrid emulator and blob storage event proxy for Aspire. Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local EventGrid emulator.</Description>
     <PackageTags>aspire;azure;storage;blob;eventgrid;emulator;local-development</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Azure.Storage" />
     <PackageReference Include="MinVer" PrivateAssets="all" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

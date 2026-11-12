@@ -11,15 +11,15 @@ namespace fretje.Aspire.Hosting.LocalEventing;
 public sealed class BlobStorageEventProxyResource(string name, AzureBlobStorageResource blobs)
     : ContainerResource(name), IResourceWithConnectionString
 {
-    internal const string HttpEndpointName = "http";
-    internal const int ContainerPort = 9999;
+    internal const string _httpEndpointName = "http";
+    internal const int _containerPort = 9999;
 
     public AzureBlobStorageResource Blobs => blobs;
 
-    public EndpointReference HttpEndpoint => field ??= new(this, HttpEndpointName);
+    public EndpointReference HttpEndpoint => field ??= new(this, _httpEndpointName);
 
     /// <summary>
-    /// The blobs connection string with its <c>BlobEndpoint</c> host/port replaced by the proxy
+    /// Gets the blobs connection string with its <c>BlobEndpoint</c> host/port replaced by the proxy
     /// (127.0.0.1, because the Azure SDK needs an IP to work properly with the emulator).
     /// Resolved lazily, so it is evaluated when the consuming resource starts.
     /// Intended for consumers running on the host (projects, IIS Express), not for containers.
