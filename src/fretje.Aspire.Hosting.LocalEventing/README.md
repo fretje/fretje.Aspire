@@ -5,7 +5,9 @@
 [![CI](https://github.com/fretje/fretje.Aspire/actions/workflows/ci.yml/badge.svg)](https://github.com/fretje/fretje.Aspire/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fretje/fretje.Aspire/blob/main/LICENSE)
 
-Local Event Grid emulator and blob storage event proxy for [.NET Aspire](https://learn.microsoft.com/dotnet/aspire). Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local Event Grid emulator.
+Local Event Grid emulator and blob storage event proxy for [.NET Aspire](https://learn.microsoft.com/dotnet/aspire).
+Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite
+blob traffic and forwarding events to a local Event Grid emulator.
 
 ## Installation
 
@@ -77,11 +79,17 @@ public async Task RunAsync(
 
 ## How it works
 
-1. **BlobStorageEventProxy** - A container (`vincentfenet/blob-storage-notify-proxy`) that sits between your application and Azurite. It forwards all blob operations to Azurite and sends Event Grid notifications for each operation.
+1. **BlobStorageEventProxy** - A container (`vincentfenet/blob-storage-notify-proxy`) that
+   sits between your application and Azurite. It forwards all blob operations to Azurite 
+   and sends Event Grid notifications for each operation.
 
-2. **EventGridEmulator** - A container (`workleap/eventgridemulator`) that receives Event Grid events and forwards them to registered webhook subscriptions (like Azure Functions blob triggers).
+2. **EventGridEmulator** - A container (`workleap/eventgridemulator`) that receives Event 
+   Grid events and forwards them to registered webhook subscriptions (like Azure Functions
+   blob triggers).
 
-3. **Connection string rewriting** - The proxy's connection string is the Azurite connection string with `BlobEndpoint` rewritten to point at the proxy (using `127.0.0.1` for Azure SDK compatibility).
+3. **Connection string rewriting** - The proxy's connection string is the Azurite 
+   connection string with `BlobEndpoint` rewritten to point at the proxy (using `127.0.0.1`
+   for Azure SDK compatibility).
 
 ## Resources
 

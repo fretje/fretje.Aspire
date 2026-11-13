@@ -4,6 +4,7 @@ using Aspire.Hosting.Azure;
 
 namespace fretje.Aspire.Hosting.LocalEventing;
 
+/// <summary>Extension methods for wiring the blob storage notify proxy into an Aspire distributed application.</summary>
 public static class BlobStorageEventProxyBuilderExtensions
 {
     private const string _defaultImage = "vincentfenet/blob-storage-notify-proxy";
@@ -14,6 +15,7 @@ public static class BlobStorageEventProxyBuilderExtensions
     /// <param name="name">The name of the resource.</param>
     /// <param name="blobs">The blobs resource, e.g. <c>storage.AddBlobs("blobs")</c>; its connection string is what gets proxied.</param>
     /// <param name="port">Fixed host port, or null for a dynamic one.</param>
+    /// <returns>A builder for the added blob storage event proxy resource.</returns>
     public static IResourceBuilder<BlobStorageEventProxyResource> AddBlobStorageEventProxy(
         this IDistributedApplicationBuilder builder,
         string name,
@@ -34,6 +36,9 @@ public static class BlobStorageEventProxyBuilderExtensions
     }
 
     /// <summary>Sends a notification to the given Event Grid topic for every blob operation passing through the proxy.</summary>
+    /// <param name="proxy">The blob storage event proxy resource to configure.</param>
+    /// <param name="topic">The Event Grid topic that receives the notifications.</param>
+    /// <returns>A builder for the blob storage event proxy resource.</returns>
     public static IResourceBuilder<BlobStorageEventProxyResource> WithEventGridTopic(
         this IResourceBuilder<BlobStorageEventProxyResource> proxy,
         IResourceBuilder<EventGridTopicResource> topic)

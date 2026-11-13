@@ -3,6 +3,7 @@ using Aspire.Hosting.ApplicationModel;
 
 namespace fretje.Aspire.Hosting.LocalEventing;
 
+/// <summary>Extension methods for wiring the local Event Grid emulator into an Aspire distributed application.</summary>
 public static class EventGridEmulatorBuilderExtensions
 {
     private const string _defaultImage = "workleap/eventgridemulator";
@@ -12,6 +13,7 @@ public static class EventGridEmulatorBuilderExtensions
     /// <param name="builder">The distributed application builder.</param>
     /// <param name="name">The name of the resource.</param>
     /// <param name="port">Fixed host port, or null for a dynamic one.</param>
+    /// <returns>A builder for the added Event Grid emulator resource.</returns>
     public static IResourceBuilder<EventGridEmulatorResource> AddEventGridEmulator(
         this IDistributedApplicationBuilder builder, string name, int? port = EventGridEmulatorResource._containerPort)
     {
@@ -40,6 +42,7 @@ public static class EventGridEmulatorBuilderExtensions
     /// <param name="emulator">The Event Grid emulator resource.</param>
     /// <param name="name">Aspire resource name (must be unique in the app model).</param>
     /// <param name="topicName">Topic name used in the emulator URL; defaults to <paramref name="name"/>.</param>
+    /// <returns>A builder for the declared topic resource.</returns>
     public static IResourceBuilder<EventGridTopicResource> AddTopic(
         this IResourceBuilder<EventGridEmulatorResource> emulator, string name, string? topicName = null)
     {
@@ -51,6 +54,11 @@ public static class EventGridEmulatorBuilderExtensions
     }
 
     /// <summary>Forwards the topic's events to an arbitrary webhook on <paramref name="target"/>.</summary>
+    /// <param name="topic">The topic resource whose events are forwarded.</param>
+    /// <param name="target">The resource whose endpoint hosts the webhook.</param>
+    /// <param name="path">The path appended to the target endpoint URL.</param>
+    /// <param name="endpointName">The name of the endpoint on <paramref name="target"/> to use.</param>
+    /// <returns>A builder for the topic resource.</returns>
     public static IResourceBuilder<EventGridTopicResource> WithWebhookSubscription(
         this IResourceBuilder<EventGridTopicResource> topic,
         IResourceBuilder<IResourceWithEndpoints> target,
@@ -64,12 +72,20 @@ public static class EventGridEmulatorBuilderExtensions
     }
 
     /// <summary>Subscribes an Azure Functions Event Grid–based blob trigger (<c>Source = BlobTriggerSource.EventGrid</c>).</summary>
+    /// <param name="topic">The topic resource to subscribe.</param>
+    /// <param name="functionApp">The Azure Functions resource hosting the trigger.</param>
+    /// <param name="functionName">The name of the triggered function.</param>
+    /// <returns>A builder for the topic resource.</returns>
     public static IResourceBuilder<EventGridTopicResource> WithBlobTriggerSubscription(
         this IResourceBuilder<EventGridTopicResource> topic, IResourceBuilder<IResourceWithEndpoints> functionApp, string functionName) =>
         topic.WithWebhookSubscription(
             functionApp, $"/runtime/webhooks/blobs?functionName=Host.Functions.{functionName}");
 
     /// <summary>Subscribes an Azure Functions <c>[EventGridTrigger]</c> function.</summary>
+    /// <param name="topic">The topic resource to subscribe.</param>
+    /// <param name="functionApp">The Azure Functions resource hosting the trigger.</param>
+    /// <param name="functionName">The name of the triggered function.</param>
+    /// <returns>A builder for the topic resource.</returns>
     public static IResourceBuilder<EventGridTopicResource> WithEventGridTriggerSubscription(
         this IResourceBuilder<EventGridTopicResource> topic, IResourceBuilder<IResourceWithEndpoints> functionApp, string functionName) =>
         topic.WithWebhookSubscription(

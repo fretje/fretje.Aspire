@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
 
     <PackageId>fretje.Aspire.Hosting.LocalEventing</PackageId>
-    <Description>Local EventGrid emulator and blob storage event proxy for Aspire. Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local EventGrid emulator.</Description>
+    <Description>Local Event Grid emulator and blob storage event proxy for Aspire. Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local Event Grid emulator.</Description>
     <PackageTags>aspire;azure;storage;blob;eventgrid;emulator;local-development</PackageTags>
 
     <MinVerTagPrefix>v</MinVerTagPrefix>

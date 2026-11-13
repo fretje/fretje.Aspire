@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BlobEventGridSample.IntegrationTests.Infrastructure;
 
+/// <summary>Extension methods for asserting on log output emitted by resources of a running <see cref="DistributedApplication"/>.</summary>
 internal static class DistributedApplicationLogAssertionExtensions
 {
     private static readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(5);
@@ -13,6 +14,12 @@ internal static class DistributedApplicationLogAssertionExtensions
     /// matching (console) log lines, in order. Returns null if the timeout expires
     /// or the log stream is closed before all expected lines are found.
     /// </summary>
+    /// <param name="app">The distributed application to read logs from.</param>
+    /// <param name="resourceName">The name of the resource to watch.</param>
+    /// <param name="expectedLines">The log substrings to match, in order.</param>
+    /// <param name="timeout">The maximum time to wait, or null for a default of 5 seconds.</param>
+    /// <param name="ct">A token to cancel the asynchronous operation.</param>
+    /// <returns>The matching log lines, or null if they were not found in time.</returns>
     public static async Task<string[]?> WaitForLogAsync(
         this DistributedApplication app,
         string resourceName,
@@ -62,6 +69,12 @@ internal static class DistributedApplicationLogAssertionExtensions
     /// Asserts that the given resource emitted a log line containing the expected substring,
     /// within the timeout.
     /// </summary>
+    /// <param name="app">The distributed application to read logs from.</param>
+    /// <param name="resourceName">The name of the resource to watch.</param>
+    /// <param name="expectedLine">The log substring to match.</param>
+    /// <param name="timeout">The maximum time to wait, or null for a default of 5 seconds.</param>
+    /// <param name="ct">A token to cancel the asynchronous operation.</param>
+    /// <returns>A task that completes when the assertion has been made.</returns>
     public static Task ShouldHaveLoggedAsync(
         this DistributedApplication app,
         string resourceName,
@@ -74,6 +87,12 @@ internal static class DistributedApplicationLogAssertionExtensions
     /// Asserts that the given resource emitted log lines containing each of the expected
     /// substrings, in order, within the timeout.
     /// </summary>
+    /// <param name="app">The distributed application to read logs from.</param>
+    /// <param name="resourceName">The name of the resource to watch.</param>
+    /// <param name="expectedLines">The log substrings to match, in order.</param>
+    /// <param name="timeout">The maximum time to wait, or null for a default of 5 seconds.</param>
+    /// <param name="ct">A token to cancel the asynchronous operation.</param>
+    /// <returns>A task that completes when the assertion has been made.</returns>
     public static async Task ShouldHaveLoggedAsync(
         this DistributedApplication app,
         string resourceName,

@@ -8,14 +8,21 @@ namespace fretje.Aspire.Hosting.LocalEventing;
 /// Event Grid notifications for them (Azurite has no native Event Grid support).
 /// Its connection string is the storage connection string with <c>BlobEndpoint</c> pointing at the proxy.
 /// </summary>
+/// <param name="name">The name of the resource.</param>
+/// <param name="blobs">The blobs resource whose connection string is being proxied.</param>
 public sealed class BlobStorageEventProxyResource(string name, AzureBlobStorageResource blobs)
     : ContainerResource(name), IResourceWithConnectionString
 {
+    /// <summary>The name of the HTTP endpoint exposed by the proxy container.</summary>
     internal const string _httpEndpointName = "http";
+
+    /// <summary>The port the proxy container listens on.</summary>
     internal const int _containerPort = 9999;
 
+    /// <summary>Gets the blobs resource whose connection string is being proxied.</summary>
     public AzureBlobStorageResource Blobs => blobs;
 
+    /// <summary>Gets the HTTP endpoint exposed by the proxy container.</summary>
     public EndpointReference HttpEndpoint => field ??= new(this, _httpEndpointName);
 
     /// <summary>
