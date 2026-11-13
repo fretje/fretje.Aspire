@@ -1,9 +1,5 @@
 <Project Sdk="fretje.NET.Sdk.Test">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Testing" />
     <PackageReference Include="Azure.Storage.Blobs" />

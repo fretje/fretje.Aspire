@@ -1,13 +1,14 @@
 {
   "sdk": {
-    "version": "10.0.100",
+    "version": "11.0.100",
     "rollForward": "latestFeature",
     "allowPrerelease": false
   },
   "msbuild-sdks": {
     "Aspire.AppHost.Sdk": "13.6.5",
-    "fretje.NET.Sdk": "1.0.1",
-    "fretje.NET.Sdk.Test": "1.0.1"
+    "Azure.Functions.Sdk": "1.0.2",
+    "fretje.NET.Sdk": "1.0.3",
+    "fretje.NET.Sdk.Test": "1.0.3"
   },
   "test": {
     "runner": "Microsoft.Testing.Platform"
