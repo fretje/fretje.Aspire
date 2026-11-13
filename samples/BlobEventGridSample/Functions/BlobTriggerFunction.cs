@@ -1,6 +1,5 @@
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
 
 namespace BlobEventGridSample.Functions;
 
