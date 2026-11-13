@@ -1,4 +1,4 @@
-<Project Sdk="fretje.NET.Sdk/1.0.0">
+<Project Sdk="fretje.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>

@@ -20,7 +20,7 @@ public class BlobTriggerFunction(ILogger<BlobTriggerFunction> logger)
         // Process the blob
         var content = await sourceBlob.OpenReadAsync(cancellationToken: ct);
         using StreamReader reader = new(content);
-        var blobContent = await reader.ReadToEndAsync(ct).ConfigureAwait(false);
+        var blobContent = await reader.ReadToEndAsync(ct);
 
         logger.LogInformation("Blob content: {Content}", blobContent);
         logger.LogInformation("Metadata: {@Metadata}", metadata);

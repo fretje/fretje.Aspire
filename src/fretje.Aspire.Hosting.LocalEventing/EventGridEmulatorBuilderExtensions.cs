@@ -30,7 +30,7 @@ public static class EventGridEmulatorBuilderExtensions
                     foreach (var subscription in topic.Subscriptions)
                     {
                         // ReferenceExpression is kept lazy, so host/container networking is resolved by Aspire.
-                        context.EnvironmentVariables[$"Topics__{topic.TopicName}__{index++}"] = subscription;
+                        context.EnvironmentVariables[string.Create(CultureInfo.InvariantCulture, $"Topics__{topic.TopicName}__{index++}")] = subscription;
                     }
                 }
             });
