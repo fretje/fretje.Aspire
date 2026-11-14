@@ -7,8 +7,8 @@
   "msbuild-sdks": {
     "Aspire.AppHost.Sdk": "13.6.5",
     "Azure.Functions.Sdk": "1.0.2",
-    "fretje.NET.Sdk": "1.0.3",
-    "fretje.NET.Sdk.Test": "1.0.3"
+    "fretje.NET.Sdk": "1.0.4",
+    "fretje.NET.Sdk.Test": "1.0.4"
   },
   "test": {
     "runner": "Microsoft.Testing.Platform"
