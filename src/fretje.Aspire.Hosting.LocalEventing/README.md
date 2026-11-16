@@ -33,28 +33,34 @@ using fretje.Aspire.Hosting.LocalEventing;
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Azure Storage emulator (Azurite)
-var storage = builder.AddAzureStorage("storage")
+var storage = builder
+    .AddAzureStorage("storage")
     .RunAsEmulator();
-var blobs = storage.AddBlobs("blobs");
+var blobs = storage
+    .AddBlobs("blobs");
 
 // Azure Functions with blob EventGrid trigger
-var functions = builder.AddAzureFunctionsProject<Projects.Functions>("functions")
+var functions = builder
+    .AddAzureFunctionsProject<Projects.Functions>("functions")
     .WithHostStorage(storage);
 
 // Event Grid emulator
-var eventGrid = builder.AddEventGridEmulator("eventgrid");
+var eventGrid = builder
+    .AddEventGridEmulator("eventgrid");
 
 // Topic with blob trigger subscription
-var blobsTopic = eventGrid.AddTopic("blobstopic")
+var blobsTopic = eventGrid
+    .AddTopic("blobstopic")
     .WithBlobTriggerSubscription(functions, "BlobTriggerFunction");
 
 // Blob storage event proxy - sits between your app and Azurite,
 // forwarding blob requests and sending Event Grid notifications
-var blobsProxy = builder.AddBlobStorageEventProxy("blobsproxy", blobs)
-    .WithEventGridTopic(blobsTopic);
+var blobsProxy = builder
+    .AddBlobStorageEventProxy("blobsproxy", blobs, blobsTopic);
 
 // External client that uploads files to blob storage
-builder.AddProject<Projects.Client>("client")
+builder
+    .AddProject<Projects.Client>("client")
     .WithReference(blobsProxy)
     .WaitFor(blobsProxy);
 

@@ -1,4 +1,5 @@
 using Aspire.Hosting;
+using Aspire.Hosting.ApplicationModel;
 
 namespace fretje.Aspire.Hosting.LocalEventing.Tests;
 
@@ -30,5 +31,19 @@ public class BlobStorageEventProxyBuilderExtensionsTests
             .WithEventGridTopic(topic);
 
         proxy.Resource.ShouldBeOfType<BlobStorageEventProxyResource>();
+    }
+
+    [Fact]
+    public void AddBlobStorageEventProxy_WithEventGridTopic_WaitsForTopicEmulator()
+    {
+        var builder = DistributedApplication.CreateBuilder([]);
+        var blobs = builder.AddAzureStorage("storage").AddBlobs("blobs");
+        var eventGrid = builder.AddEventGridEmulator("eventgrid");
+        var topic = eventGrid.AddTopic("blobstopic");
+
+        var proxy = builder.AddBlobStorageEventProxy("blobsproxy", blobs, topic);
+
+        proxy.Resource.Annotations.OfType<WaitAnnotation>()
+            .ShouldContain(annotation => ReferenceEquals(annotation.Resource, eventGrid.Resource));
     }
 }
