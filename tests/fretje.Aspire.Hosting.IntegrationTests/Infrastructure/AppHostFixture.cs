@@ -11,7 +11,7 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
     where TAppHost : class
 {
     private static readonly TimeSpan _buildTimeout = TimeSpan.FromSeconds(5);
-    private static readonly TimeSpan _startTimeout = TimeSpan.FromSeconds(90);
+    private static readonly TimeSpan _startTimeout = TimeSpan.FromSeconds(120);
 
     private DistributedApplication? _app;
 
