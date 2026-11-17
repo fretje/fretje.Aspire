@@ -15,8 +15,7 @@ var signalr = builder
 var functionApp = builder
     .AddAzureFunctionsProject<Projects.SignalRUpstream_Functions>("functionapp")
     .WithHostStorage(storage)
-    .WithEnvironment("AzureSignalRConnectionString", signalr)
-    .WaitFor(signalr);
+    .WithEnvironment("AzureSignalRConnectionString", signalr);
 
 signalr.WithUpstreamFunctionsProject(functionApp);
 
