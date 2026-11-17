@@ -2,7 +2,7 @@ using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlobEventGridSample.IntegrationTests.Infrastructure;
+namespace fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
 /// <summary>Extension methods for asserting on log output emitted by resources of a running <see cref="DistributedApplication"/>.</summary>
 internal static class DistributedApplicationLogAssertionExtensions

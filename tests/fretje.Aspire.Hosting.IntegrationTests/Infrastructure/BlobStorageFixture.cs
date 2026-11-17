@@ -1,6 +1,6 @@
 using Azure.Storage.Blobs;
 
-namespace BlobEventGridSample.IntegrationTests.Infrastructure;
+namespace fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
 /// <summary>Fixture that uploads blobs to the samples container and polls the processed container for results.</summary>
 public sealed class BlobStorageFixture

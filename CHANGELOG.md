@@ -17,13 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `WithEventGridTriggerSubscription`: subscribes an Azure Functions `[EventGridTrigger]` to a topic.
 - `WithWebhookSubscription`: forwards a topic's events to an arbitrary webhook.
 
-#### Changed
-
-- Release tags now use the `localeventing-v` prefix (for example `localeventing-v1.0.0`) instead of `v`, so every package in the repository can be versioned and released independently.
-
 ### fretje.Aspire.Hosting.Azure.SignalR
 
 #### Added
 
 - `WithUpstream`: adds an upstream endpoint (any URL, or a path on another resource's endpoint) that the local Azure SignalR emulator forwards serverless events to. Can be called multiple times.
 - `WithUpstreamFunctionsProject`: adds the Azure Functions SignalR trigger webhook of a Functions resource as an upstream endpoint.
+
+### Samples
+
+#### Added
+
+- `BlobEventGridSample`: demonstrates Azure Functions blob triggers with the local Event Grid emulator and Azurite.
+- `SignalRUpstreamSample`: demonstrates an Azure Functions serverless hub with an Azure SignalR emulator upstream and a client that connects to it.

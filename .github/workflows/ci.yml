@@ -44,8 +44,8 @@ jobs:
           dotnet build tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj -c Release --no-restore
           dotnet build tests/fretje.Aspire.Hosting.Azure.SignalR.Tests/fretje.Aspire.Hosting.Azure.SignalR.Tests.csproj -c Release --no-restore
 
-      # Unit tests only. The BlobEventGridSample.IntegrationTests project requires
-      # Docker (Azurite + Event Grid emulator containers) and is run separately.
+      # Unit tests only. The sample integration tests require Docker containers
+      # (Azurite, Event Grid emulator, and SignalR emulator) and run separately.
       - name: Test
         run: |
           dotnet test tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
@@ -72,16 +72,16 @@ jobs:
           global-json-file: global.json
 
       - name: Restore
-        run: dotnet restore tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj
+        run: dotnet restore tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj
 
       - name: Build
-        run: dotnet build tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj -c Release --no-restore
+        run: dotnet build tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-restore
 
       - name: Install Azure Functions Core Tools
         run: npm install -g azure-functions-core-tools@4 --allow-scripts=azure-functions-core-tools
 
       - name: Test
-        run: dotnet test tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
+        run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
 
       - name: Upload test results
         if: ${{ !cancelled() }}

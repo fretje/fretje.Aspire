@@ -18,11 +18,11 @@ directly, with filters: `dotnet run --project tests/fretje.Aspire.Hosting.LocalE
 
 ### Integration tests
 
-`tests/BlobEventGridSample.IntegrationTests` runs the full sample end-to-end. It requires **Docker** — the AppHost
-starts Azurite and the Event Grid emulator as containers. Run it explicitly:
+`tests/fretje.Aspire.Hosting.IntegrationTests` runs the sample integration tests end-to-end. It requires **Docker** — the AppHosts
+start Azurite, the Event Grid emulator, and the SignalR emulator as containers. Run it explicitly:
 
 ```sh
-dotnet test tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj -c Release
+dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release
 ```
 
 These tests are intentionally excluded from the default CI matrix (which runs on both Ubuntu and Windows) and run in a
@@ -35,11 +35,10 @@ Docker is available.
   Grid emulator and the blob storage event proxy).
 - `src/fretje.Aspire.Hosting.Azure.SignalR` - the NuGet package with upstream endpoint support for the Azure SignalR
   Service emulator.
-- `samples/` - a runnable Aspire sample (AppHost + Azure Functions blob EventGrid trigger + a client that uploads a
-  blob) demonstrating the whole flow.
+- `samples/` - runnable Aspire samples demonstrating blob Event Grid triggers and Azure SignalR serverless upstreams.
 - `tests/fretje.Aspire.Hosting.LocalEventing.Tests` - unit tests for the LocalEventing package.
 - `tests/fretje.Aspire.Hosting.Azure.SignalR.Tests` - unit tests for the SignalR package.
-- `tests/BlobEventGridSample.IntegrationTests` - end-to-end integration tests for the sample (requires Docker).
+- `tests/fretje.Aspire.Hosting.IntegrationTests` - end-to-end integration tests for the Aspire samples (requires Docker).
 
 ## Releasing (maintainers)
 

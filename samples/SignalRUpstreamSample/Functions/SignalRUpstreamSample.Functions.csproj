@@ -1,0 +1,15 @@
+<Project Sdk="Azure.Functions.Sdk">
+  <Sdk Name="fretje.NET.Sdk" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.SignalRService" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.OpenTelemetry" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sample.ServiceDefaults\Sample.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

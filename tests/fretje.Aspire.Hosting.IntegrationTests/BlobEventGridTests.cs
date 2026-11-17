@@ -1,13 +1,13 @@
-using BlobEventGridSample.IntegrationTests.Infrastructure;
+using fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
-namespace BlobEventGridSample.IntegrationTests;
+namespace fretje.Aspire.Hosting.IntegrationTests;
 
-public class BlobTriggerTests(AppHostFixture fixture) : IClassFixture<AppHostFixture>
+public class BlobEventGridTests(BlobEventGridAppHostFixture fixture) : IClassFixture<BlobEventGridAppHostFixture>
 {
     private static readonly byte[] _content = "Hello from integration test!"u8.ToArray();
     private readonly string _fileName = $"test-file-{Guid.NewGuid()}.txt";
 
-    private readonly AppHostFixture _fixture = fixture;
+    private readonly BlobEventGridAppHostFixture _fixture = fixture;
 
     private static CancellationToken Ct => TestContext.Current.CancellationToken;
 

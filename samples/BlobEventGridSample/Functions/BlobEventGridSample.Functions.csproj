@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceDefaults\BlobEventGridSample.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\Sample.ServiceDefaults\Sample.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
