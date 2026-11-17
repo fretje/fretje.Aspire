@@ -68,7 +68,6 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
     /// <param name="ct">A token to cancel cleanup.</param>
     /// <returns>A task that completes when cleanup has finished.</returns>
     protected virtual ValueTask OnStoppingAsync(CancellationToken ct) => ValueTask.CompletedTask;
-
 }
 
 /// <summary>Extension methods for <see cref="IDistributedApplicationTestingBuilder"/> that set the persistence mode.</summary>
