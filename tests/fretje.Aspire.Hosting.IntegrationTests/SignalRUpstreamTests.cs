@@ -6,23 +6,21 @@ public class SignalRUpstreamTests(SignalRUpstreamAppHostFixture fixture) : IClas
 {
     private readonly SignalRUpstreamAppHostFixture _fixture = fixture;
 
-    private static CancellationToken Ct => TestContext.Current.CancellationToken;
-
     [Fact]
     public async Task ClientConnection_ShouldLogConnectedAndDisconnectedEvents()
     {
-        await _fixture.Client.ConnectAsync(Ct);
+        await _fixture.Client.ConnectAsync(XunitCt);
 
         await _fixture.App.ShouldHaveLoggedAsync(
             "functionapp",
             "Executed 'Functions.OnConnected'",
-            ct: Ct);
+            ct: XunitCt);
 
-        await _fixture.Client.DisconnectAsync(Ct);
+        await _fixture.Client.DisconnectAsync(XunitCt);
 
         await _fixture.App.ShouldHaveLoggedAsync(
             "functionapp",
             "Executed 'Functions.OnDisconnected'",
-            ct: Ct);
+            ct: XunitCt);
     }
 }

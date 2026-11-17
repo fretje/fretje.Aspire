@@ -7,8 +7,6 @@ namespace fretje.Aspire.Hosting.Azure.SignalR.Tests;
 
 public class AzureSignalRUpstreamBuilderExtensionsTests
 {
-    private static CancellationToken Ct => TestContext.Current.CancellationToken;
-
     [Fact]
     public void WithUpstream_Url_AddsAnnotationWithDefaultPatterns()
     {
@@ -139,7 +137,7 @@ public class AzureSignalRUpstreamBuilderExtensionsTests
     {
         var configuration = await ExecutionConfigurationBuilder.Create(signalR.Resource)
             .WithEnvironmentVariablesConfig()
-            .BuildAsync(signalR.ApplicationBuilder.ExecutionContext, NullLogger.Instance, Ct);
+            .BuildAsync(signalR.ApplicationBuilder.ExecutionContext, NullLogger.Instance, XunitCt);
 
         return configuration.EnvironmentVariables.ToDictionary();
     }

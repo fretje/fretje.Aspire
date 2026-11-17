@@ -9,26 +9,24 @@ public class BlobEventGridTests(BlobEventGridAppHostFixture fixture) : IClassFix
 
     private readonly BlobEventGridAppHostFixture _fixture = fixture;
 
-    private static CancellationToken Ct => TestContext.Current.CancellationToken;
-
     [Fact]
     public async Task UploadBlob_ShouldLogBlobTrigger()
     {
-        await _fixture.BlobStorage.UploadFileAsync(_fileName, _content, Ct);
+        await _fixture.BlobStorage.UploadFileAsync(_fileName, _content, XunitCt);
 
         await _fixture.App.ShouldHaveLoggedAsync(
             "functions",
             "Executed 'Functions.BlobTriggerFunction'",
-            ct: Ct);
+            ct: XunitCt);
     }
 
     [Fact]
     public async Task UploadBlob_ShouldTriggerBlobProcessing()
     {
-        await _fixture.BlobStorage.UploadFileAsync(_fileName, _content, Ct);
+        await _fixture.BlobStorage.UploadFileAsync(_fileName, _content, XunitCt);
 
         var processedContent = await _fixture.BlobStorage
-            .WaitForProcessedBlobAsync(_fileName, ct: Ct);
+            .WaitForProcessedBlobAsync(_fileName, ct: XunitCt);
 
         processedContent
             .ShouldNotBeNull()

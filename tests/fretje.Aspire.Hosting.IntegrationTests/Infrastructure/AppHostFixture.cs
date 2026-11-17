@@ -21,21 +21,19 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
     /// <summary>Gets arguments passed to the AppHost during testing.</summary>
     protected virtual IReadOnlyList<string> AppHostArguments => [];
 
-    private static CancellationToken Ct => TestContext.Current.CancellationToken;
-
     /// <summary>Initializes the application asynchronously.</summary>
     public async ValueTask InitializeAsync()
     {
         var builder = await DistributedApplicationTestingBuilder
-            .CreateAsync<TAppHost>([.. AppHostArguments], Ct);
+            .CreateAsync<TAppHost>([.. AppHostArguments], XunitCt);
 
         builder.WithPersistenceMode(PersistenceMode.Session);
 
-        _app = await builder.BuildAsync(Ct).WaitAsync(_buildTimeout, Ct);
+        _app = await builder.BuildAsync(XunitCt).WaitAsync(_buildTimeout, XunitCt);
 
-        await _app.StartAsync(Ct).WaitAsync(_startTimeout, Ct);
+        await _app.StartAsync(XunitCt).WaitAsync(_startTimeout, XunitCt);
 
-        await OnStartedAsync(Ct);
+        await OnStartedAsync(XunitCt);
     }
 
     /// <summary>Disposes the application asynchronously.</summary>
