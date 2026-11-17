@@ -12,14 +12,14 @@ public class SignalRUpstreamTests(SignalRUpstreamAppHostFixture fixture) : IClas
         await _fixture.Client.ConnectAsync(XunitCt);
 
         await _fixture.App.ShouldHaveLoggedAsync(
-            "functionapp",
+            "functions",
             "Executed 'Functions.OnConnected'",
             ct: XunitCt);
 
         await _fixture.Client.DisconnectAsync(XunitCt);
 
         await _fixture.App.ShouldHaveLoggedAsync(
-            "functionapp",
+            "functions",
             "Executed 'Functions.OnDisconnected'",
             ct: XunitCt);
     }

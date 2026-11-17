@@ -17,7 +17,7 @@ public sealed class SignalRUpstreamAppHostFixture : AppHostFixture<Projects.Sign
     /// <inheritdoc />
     protected override ValueTask OnStartedAsync(CancellationToken ct)
     {
-        _client = new($"{App.GetEndpoint("functionapp").ToString().TrimEnd('/')}/api");
+        _client = new($"{App.GetEndpoint("functions").ToString().TrimEnd('/')}/api");
         return ValueTask.CompletedTask;
     }
 

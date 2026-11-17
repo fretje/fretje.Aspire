@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 
-var functionAppUrl = Environment.GetEnvironmentVariable("services__functionapp__http__0")
-    ?? throw new InvalidOperationException("The Aspire functionapp HTTP endpoint reference is not configured.");
+var functionAppUrl = Environment.GetEnvironmentVariable("services__functions__http__0")
+    ?? throw new InvalidOperationException("The Aspire functions HTTP endpoint reference is not configured.");
 var userId = Guid.NewGuid().ToString("N");
 var hubUrl = $"{functionAppUrl.TrimEnd('/')}/api?userId={Uri.EscapeDataString(userId)}";
 
