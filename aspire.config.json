@@ -1,5 +1,5 @@
 {
   "appHost": {
-    "path": "samples/BlobEventGridSample/AppHost/BlobEventGridSample.AppHost.csproj"
+    "path": "samples/BlobEventGrid/AppHost/BlobEventGrid.AppHost.csproj"
   }
 }

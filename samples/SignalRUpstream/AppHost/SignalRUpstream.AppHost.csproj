@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\fretje.Aspire.Hosting.Azure.SignalR\fretje.Aspire.Hosting.Azure.SignalR.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\Functions\SignalRUpstreamSample.Functions.csproj" />
-    <ProjectReference Include="..\Client\SignalRUpstreamSample.Client.csproj" />
+    <ProjectReference Include="..\Functions\SignalRUpstream.Functions.csproj" />
+    <ProjectReference Include="..\Client\SignalRUpstream.Client.csproj" />
   </ItemGroup>
 
 </Project>

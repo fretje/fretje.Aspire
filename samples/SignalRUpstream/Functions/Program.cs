@@ -1,6 +1,6 @@
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
-using SignalRUpstreamSample.Functions;
+using SignalRUpstream.Functions;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 

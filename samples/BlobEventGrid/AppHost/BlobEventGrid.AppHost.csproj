@@ -1,4 +1,4 @@
-﻿<Project Sdk="Aspire.AppHost.Sdk">
+<Project Sdk="Aspire.AppHost.Sdk">
   <Sdk Name="fretje.NET.Sdk" />
   
   <PropertyGroup>
@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\fretje.Aspire.Hosting.LocalEventing\fretje.Aspire.Hosting.LocalEventing.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\Functions\BlobEventGridSample.Functions.csproj" />
-    <ProjectReference Include="..\Client\BlobEventGridSample.Client.csproj" />
+    <ProjectReference Include="..\Functions\BlobEventGrid.Functions.csproj" />
+    <ProjectReference Include="..\Client\BlobEventGrid.Client.csproj" />
   </ItemGroup>
 
 </Project>

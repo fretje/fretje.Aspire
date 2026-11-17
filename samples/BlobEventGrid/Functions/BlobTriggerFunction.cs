@@ -1,7 +1,7 @@
 using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker;
 
-namespace BlobEventGridSample.Functions;
+namespace BlobEventGrid.Functions;
 
 /// <summary>Azure Function that triggers on blob creation events via Event Grid and copies the blob to a processed container.</summary>
 /// <param name="logger">The logger instance.</param>

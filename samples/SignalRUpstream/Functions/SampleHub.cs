@@ -3,7 +3,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.Functions.Worker.SignalRService;
 
-namespace SignalRUpstreamSample.Functions;
+namespace SignalRUpstream.Functions;
 
 /// <summary>Azure Functions serverless hub that negotiates SignalR client connections and logs connection events.</summary>
 /// <param name="serviceProvider">The service provider used by the serverless hub.</param>

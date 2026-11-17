@@ -7,8 +7,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\samples\BlobEventGridSample\AppHost\BlobEventGridSample.AppHost.csproj" />
-    <ProjectReference Include="..\..\samples\SignalRUpstreamSample\AppHost\SignalRUpstreamSample.AppHost.csproj" />
+    <ProjectReference Include="..\..\samples\BlobEventGrid\AppHost\BlobEventGrid.AppHost.csproj" />
+    <ProjectReference Include="..\..\samples\SignalRUpstream\AppHost\SignalRUpstream.AppHost.csproj" />
   </ItemGroup>
 
 </Project>

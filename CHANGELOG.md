@@ -28,5 +28,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 #### Added
 
-- `BlobEventGridSample`: demonstrates Azure Functions blob triggers with the local Event Grid emulator and Azurite.
-- `SignalRUpstreamSample`: demonstrates an Azure Functions serverless hub with an Azure SignalR emulator upstream and a client that connects to it.
+- `BlobEventGrid`: demonstrates Azure Functions blob triggers with the local Event Grid emulator and Azurite.
+- `SignalRUpstream`: demonstrates an Azure Functions serverless hub with an Azure SignalR emulator upstream and a client that connects to it.

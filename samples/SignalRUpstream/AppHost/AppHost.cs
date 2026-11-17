@@ -13,7 +13,7 @@ var signalr = builder
     .RunAsEmulator();
 
 var functionApp = builder
-    .AddAzureFunctionsProject<Projects.SignalRUpstreamSample_Functions>("functionapp")
+    .AddAzureFunctionsProject<Projects.SignalRUpstream_Functions>("functionapp")
     .WithHostStorage(storage)
     .WithEnvironment("AzureSignalRConnectionString", signalr)
     .WaitFor(signalr);
@@ -22,7 +22,7 @@ signalr.WithUpstreamFunctionsProject(functionApp);
 
 if (builder.Configuration.GetValue("IncludeClientProjects", defaultValue: true))
 {
-    builder.AddProject<Projects.SignalRUpstreamSample_Client>("client")
+    builder.AddProject<Projects.SignalRUpstream_Client>("client")
         .WithReference(functionApp)
         .WaitFor(functionApp);
 }

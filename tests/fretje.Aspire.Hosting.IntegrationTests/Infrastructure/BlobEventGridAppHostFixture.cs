@@ -3,7 +3,7 @@ using Aspire.Hosting.Testing;
 namespace fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
 /// <summary>Fixture that starts the Blob Event Grid sample and exposes its blob storage test helper.</summary>
-public sealed class BlobEventGridAppHostFixture : AppHostFixture<Projects.BlobEventGridSample_AppHost>
+public sealed class BlobEventGridAppHostFixture : AppHostFixture<Projects.BlobEventGrid_AppHost>
 {
     /// <summary>Gets the blob storage fixture used to upload and poll for processed blobs.</summary>
     public BlobStorageFixture BlobStorage { get; private set; } = null!;

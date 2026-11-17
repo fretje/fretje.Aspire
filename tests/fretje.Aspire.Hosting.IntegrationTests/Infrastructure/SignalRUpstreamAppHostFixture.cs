@@ -3,7 +3,7 @@ using Aspire.Hosting.Testing;
 namespace fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
 /// <summary>Fixture that starts the SignalR upstream sample without its standalone client resource.</summary>
-public sealed class SignalRUpstreamAppHostFixture : AppHostFixture<Projects.SignalRUpstreamSample_AppHost>
+public sealed class SignalRUpstreamAppHostFixture : AppHostFixture<Projects.SignalRUpstream_AppHost>
 {
     /// <summary>Gets the SignalR client connected to the sample hub endpoint.</summary>
     public SignalRClientFixture Client { get; private set; } = null!;
