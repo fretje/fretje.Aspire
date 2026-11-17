@@ -15,14 +15,14 @@ public static class BlobStorageEventProxyBuilderExtensions
     /// <param name="name">The name of the resource.</param>
     /// <param name="blobs">The blobs resource, e.g. <c>storage.AddBlobs("blobs")</c>; its connection string is what gets proxied.</param>
     /// <param name="topic">The Event Grid topic that receives notifications.</param>
-    /// <param name="port">Fixed host port, or null for a dynamic one.</param>
+    /// <param name="port">Fixed host port, or null to let Aspire assign one dynamically. Defaults to null.</param>
     /// <returns>A builder for the added blob storage event proxy resource.</returns>
     public static IResourceBuilder<BlobStorageEventProxyResource> AddBlobStorageEventProxy(
         this IDistributedApplicationBuilder builder,
         string name,
         IResourceBuilder<AzureBlobStorageResource> blobs,
         IResourceBuilder<EventGridTopicResource> topic,
-        int? port = 9999) =>
+        int? port = null) =>
         builder.AddBlobStorageEventProxy(name, blobs, port)
             .WithEventGridTopic(topic);
 
@@ -30,13 +30,13 @@ public static class BlobStorageEventProxyBuilderExtensions
     /// <param name="builder">The distributed application builder.</param>
     /// <param name="name">The name of the resource.</param>
     /// <param name="blobs">The blobs resource, e.g. <c>storage.AddBlobs("blobs")</c>; its connection string is what gets proxied.</param>
-    /// <param name="port">Fixed host port, or null for a dynamic one.</param>
+    /// <param name="port">Fixed host port, or null to let Aspire assign one dynamically. Defaults to null.</param>
     /// <returns>A builder for the added blob storage event proxy resource.</returns>
     public static IResourceBuilder<BlobStorageEventProxyResource> AddBlobStorageEventProxy(
         this IDistributedApplicationBuilder builder,
         string name,
         IResourceBuilder<AzureBlobStorageResource> blobs,
-        int? port = 9999)
+        int? port = null)
     {
         var storage = builder.CreateResourceBuilder(blobs.Resource.Parent);
         BlobStorageEventProxyResource resource = new(name, blobs.Resource);
