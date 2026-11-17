@@ -12,10 +12,10 @@ public static class EventGridEmulatorBuilderExtensions
     /// <summary>Adds a local Event Grid emulator container.</summary>
     /// <param name="builder">The distributed application builder.</param>
     /// <param name="name">The name of the resource.</param>
-    /// <param name="port">Fixed host port, or null for a dynamic one.</param>
+    /// <param name="port">Fixed host port, or null to let Aspire assign one dynamically. Defaults to null.</param>
     /// <returns>A builder for the added Event Grid emulator resource.</returns>
     public static IResourceBuilder<EventGridEmulatorResource> AddEventGridEmulator(
-        this IDistributedApplicationBuilder builder, string name, int? port = EventGridEmulatorResource._containerPort)
+        this IDistributedApplicationBuilder builder, string name, int? port = null)
     {
         EventGridEmulatorResource resource = new(name);
 
