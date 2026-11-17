@@ -62,9 +62,6 @@ jobs:
   integration:
     name: Integration tests
     runs-on: ubuntu-latest
-    env:
-      DCP_DIAGNOSTICS_LOG_FOLDER: ${{ runner.temp }}/aspire-dcp-diagnostics
-      DCP_DIAGNOSTICS_LOG_LEVEL: debug
     steps:
       - uses: actions/checkout@v7
         with:
@@ -84,6 +81,9 @@ jobs:
         run: npm install -g azure-functions-core-tools@4 --allow-scripts=azure-functions-core-tools
 
       - name: Test
+        env:
+          DCP_DIAGNOSTICS_LOG_FOLDER: ${{ github.workspace }}/aspire-dcp-diagnostics
+          DCP_DIAGNOSTICS_LOG_LEVEL: debug
         run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
 
       - name: Upload test results
@@ -93,7 +93,7 @@ jobs:
           name: test-results-integration
           path: |
             TestResults/**/*.trx
-            ${{ runner.temp }}/aspire-dcp-diagnostics
+            aspire-dcp-diagnostics
           if-no-files-found: ignore
 
   pack:
