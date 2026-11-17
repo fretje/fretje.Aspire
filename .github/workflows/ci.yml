@@ -75,13 +75,13 @@ jobs:
         run: dotnet restore tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj
 
       - name: Build
-        run: dotnet build tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-restore
+        run: dotnet build tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release -p:XunitParallelizationMode=None --no-restore
 
       - name: Install Azure Functions Core Tools
         run: npm install -g azure-functions-core-tools@4 --allow-scripts=azure-functions-core-tools
 
       - name: Test
-        run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build -p:XunitParallelizationMode=None --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
+        run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
 
       - name: Upload test results
         if: ${{ !cancelled() }}
