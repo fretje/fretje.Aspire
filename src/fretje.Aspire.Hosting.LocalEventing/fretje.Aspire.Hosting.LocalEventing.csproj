@@ -7,8 +7,10 @@
     <Description>Local Event Grid emulator and blob storage event proxy for Aspire. Enables local development of Azure Functions blob EventGrid triggers by proxying Azurite blob traffic and forwarding events to a local Event Grid emulator.</Description>
     <PackageTags>aspire;azure;storage;blob;eventgrid;emulator;local-development</PackageTags>
 
-    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <!-- Tags for this package look like localeventing-v1.0.0 or localeventing-v1.0.0-preview.5 (see CONTRIBUTING.md). -->
+    <MinVerTagPrefix>localeventing-v</MinVerTagPrefix>
     <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+    <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
   </PropertyGroup>
 
   <ItemGroup>

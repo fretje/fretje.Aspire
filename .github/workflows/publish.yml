@@ -1,18 +1,24 @@
 name: Publish
 
 # Publishes to nuget.org (Trusted Publishing, no API key) and creates a GitHub release
-# when a version tag is pushed:
-#   git tag v1.0.0 && git push origin v1.0.0
-#   git tag v1.1.0-preview.1 && git push origin v1.1.0-preview.1   (pre-release)
+# when a package version tag is pushed. Every package has its own tag prefix (MinVerTagPrefix in its project file):
+#   git tag localeventing-v1.0.0 && git push origin localeventing-v1.0.0
+#   git tag signalr-v1.0.0-preview.1 && git push origin signalr-v1.0.0-preview.1   (pre-release)
 #
 # One-time setup: see "Releasing" in CONTRIBUTING.md.
 # The workflow file name (publish.yml) must match the nuget.org trusted publishing policy.
 
 on:
   push:
-    tags: ['v*']
+    tags: ['localeventing-v*', 'signalr-v*']
   workflow_dispatch:
     inputs:
+      package:
+        description: 'Package to build (for a tag push it is derived from the tag)'
+        required: false
+        type: choice
+        options: [localeventing, signalr]
+        default: localeventing
       dry-run:
         description: 'Skip publishing to nuget.org'
         required: false
@@ -42,25 +48,55 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: Resolve package
+        id: package
+        run: |
+          case "${GITHUB_REF_TYPE}:${GITHUB_REF_NAME}" in
+            tag:localeventing-v*) package=localeventing ;;
+            tag:signalr-v*) package=signalr ;;
+            *) package="${PACKAGE_INPUT}" ;;
+          esac
+
+          case "$package" in
+            localeventing)
+              project=src/fretje.Aspire.Hosting.LocalEventing
+              tests=tests/fretje.Aspire.Hosting.LocalEventing.Tests ;;
+            signalr)
+              project=src/fretje.Aspire.Hosting.Azure.SignalR
+              tests=tests/fretje.Aspire.Hosting.Azure.SignalR.Tests ;;
+            *)
+              echo "Unknown package '$package'" >&2
+              exit 1 ;;
+          esac
+
+          {
+            echo "project=$project"
+            echo "tests=$tests"
+          } >> "$GITHUB_OUTPUT"
+        env:
+          PACKAGE_INPUT: ${{ inputs.package }}
+
       - name: Restore
-        run: dotnet restore tests/fretje.Aspire.Hosting.LocalEventing.Tests
+        run: dotnet restore ${{ steps.package.outputs.tests }}
 
       - name: Build
-        run: dotnet build tests/fretje.Aspire.Hosting.LocalEventing.Tests -c Release --no-restore
+        run: dotnet build ${{ steps.package.outputs.tests }} -c Release --no-restore
 
       - name: Test
-        run: dotnet test tests/fretje.Aspire.Hosting.LocalEventing.Tests -c Release --no-build
+        run: dotnet test ${{ steps.package.outputs.tests }} -c Release --no-build
 
       - name: Pack
-        run: dotnet pack src/fretje.Aspire.Hosting.LocalEventing -c Release -o artifacts --no-build
+        run: dotnet pack ${{ steps.package.outputs.project }} -c Release -o artifacts --no-build
 
       - name: NuGet login
+        if: ${{ !inputs.dry-run }}
         uses: NuGet/login@v1
         id: login
         with:
           user: ${{ vars.NUGET_USER }}
 
       - name: Push to nuget.org
+        if: ${{ !inputs.dry-run }}
         run: >
           dotnet nuget push "artifacts/*.nupkg"
           --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
@@ -68,9 +104,12 @@ jobs:
           --skip-duplicate
 
       - name: Create GitHub release
+        if: ${{ !inputs.dry-run }}
         run: |
           flags=""
-          if [[ "$GITHUB_REF_NAME" == *-* ]]; then flags="--prerelease"; fi
+          # The tag prefix contains a hyphen, so only look at the version after it
+          version="${GITHUB_REF_NAME#*-v}"
+          if [[ "$version" == *-* ]]; then flags="--prerelease"; fi
           gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg --generate-notes --title "$GITHUB_REF_NAME" $flags
         env:
           GH_TOKEN: ${{ github.token }}

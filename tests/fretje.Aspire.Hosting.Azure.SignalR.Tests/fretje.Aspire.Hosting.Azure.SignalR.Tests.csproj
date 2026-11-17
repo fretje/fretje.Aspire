@@ -1,0 +1,11 @@
+<Project Sdk="fretje.NET.Sdk.Test">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net11.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\fretje.Aspire.Hosting.Azure.SignalR\fretje.Aspire.Hosting.Azure.SignalR.csproj" />
+  </ItemGroup>
+
+</Project>

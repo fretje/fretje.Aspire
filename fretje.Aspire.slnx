@@ -25,10 +25,12 @@
     <Project Path="samples/BlobEventGridSample/ServiceDefaults/BlobEventGridSample.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/fretje.Aspire.Hosting.Azure.SignalR/fretje.Aspire.Hosting.Azure.SignalR.csproj" />
     <Project Path="src/fretje.Aspire.Hosting.LocalEventing/fretje.Aspire.Hosting.LocalEventing.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/BlobEventGridSample.IntegrationTests/BlobEventGridSample.IntegrationTests.csproj" />
+    <Project Path="tests/fretje.Aspire.Hosting.Azure.SignalR.Tests/fretje.Aspire.Hosting.Azure.SignalR.Tests.csproj" />
     <Project Path="tests/fretje.Aspire.Hosting.LocalEventing.Tests/fretje.Aspire.Hosting.LocalEventing.Tests.csproj" />
   </Folder>
 </Solution>

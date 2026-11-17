@@ -1,0 +1,21 @@
+<Project Sdk="fretje.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net11.0</TargetFrameworks>
+
+    <PackageId>fretje.Aspire.Hosting.Azure.SignalR</PackageId>
+    <Description>Upstream endpoint support for the Azure SignalR Service emulator in Aspire. Point the emulator at one or more upstream URLs, such as an Azure Functions SignalR trigger, so serverless SignalR messages and connection events reach your local app.</Description>
+    <PackageTags>aspire;azure;signalr;serverless;upstream;emulator;azure-functions;local-development</PackageTags>
+
+    <!-- Tags for this package look like signalr-v1.0.0 or signalr-v1.0.0-preview.1 (see CONTRIBUTING.md). -->
+    <MinVerTagPrefix>signalr-v</MinVerTagPrefix>
+    <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+    <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Azure.SignalR" />
+    <PackageReference Include="MinVer" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

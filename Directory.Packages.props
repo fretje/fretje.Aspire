@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup Label="Aspire">
     <PackageVersion Include="Aspire.Hosting.Azure.Functions" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Hosting.Azure.SignalR" Version="13.6.5" />
     <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="13.6.5" />
     <PackageVersion Include="Aspire.Hosting.Testing" Version="13.6.5" />
   </ItemGroup>

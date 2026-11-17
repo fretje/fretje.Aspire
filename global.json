@@ -6,7 +6,7 @@
   },
   "msbuild-sdks": {
     "Aspire.AppHost.Sdk": "13.6.5",
-    "Azure.Functions.Sdk": "1.0.2",
+    "Azure.Functions.Sdk": "1.1.0",
     "fretje.NET.Sdk": "1.0.6",
     "fretje.NET.Sdk.Test": "1.0.6"
   },

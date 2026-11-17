@@ -13,6 +13,15 @@ to a local Event Grid emulator.
 See the [project README](src/fretje.Aspire.Hosting.LocalEventing/README.md) for installation and
 usage.
 
+### [fretje.Aspire.Hosting.Azure.SignalR](src/fretje.Aspire.Hosting.Azure.SignalR/README.md)
+
+Upstream endpoint support for the Azure SignalR Service emulator in .NET Aspire. Point the emulator
+at one or more upstream URLs, such as an Azure Functions SignalR trigger, so serverless SignalR
+messages and connection events reach your local app.
+
+See the [project README](src/fretje.Aspire.Hosting.Azure.SignalR/README.md) for installation and
+usage.
+
 ## Repository layout
 
 - `src/` – NuGet packages and libraries
