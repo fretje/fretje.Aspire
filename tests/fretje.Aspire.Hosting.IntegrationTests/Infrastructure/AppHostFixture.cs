@@ -2,7 +2,6 @@
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Testing;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace fretje.Aspire.Hosting.IntegrationTests.Infrastructure;
 
@@ -12,7 +11,7 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
     where TAppHost : class
 {
     private static readonly TimeSpan _buildTimeout = TimeSpan.FromSeconds(5);
-    private static readonly TimeSpan _startTimeout = TimeSpan.FromSeconds(120);
+    private static readonly TimeSpan _startTimeout = TimeSpan.FromSeconds(90);
 
     private DistributedApplication? _app;
 
@@ -32,16 +31,7 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
 
         _app = await builder.BuildAsync(XunitCt).WaitAsync(_buildTimeout, XunitCt);
 
-        try
-        {
-            await _app.StartAsync(XunitCt).WaitAsync(_startTimeout, XunitCt);
-        }
-        catch (TimeoutException exception) when (!XunitCt.IsCancellationRequested)
-        {
-            throw new TimeoutException(
-                $"Timed out starting the AppHost after {_startTimeout}. Resource states: {GetResourceStateSummary(_app)}",
-                exception);
-        }
+        await _app.StartAsync(XunitCt).WaitAsync(_startTimeout, XunitCt);
 
         await OnStartedAsync(XunitCt);
     }
@@ -79,25 +69,6 @@ public abstract class AppHostFixture<TAppHost> : IAsyncLifetime
     /// <returns>A task that completes when cleanup has finished.</returns>
     protected virtual ValueTask OnStoppingAsync(CancellationToken ct) => ValueTask.CompletedTask;
 
-    private static string GetResourceStateSummary(DistributedApplication app)
-    {
-        var model = app.Services.GetRequiredService<DistributedApplicationModel>();
-
-        return string.Join("; ", model.Resources.Select(resource =>
-        {
-            var state = app.ResourceNotifications.TryGetCurrentState(resource.Name, out var resourceEvent)
-                ? resourceEvent.Snapshot.State?.Text ?? "no state"
-                : "no state reported";
-            var waitsFor = resource.Annotations
-                .OfType<WaitAnnotation>()
-                .Select(annotation => annotation.Resource.Name)
-                .ToArray();
-
-            return waitsFor.Length is 0
-                ? $"{resource.Name}={state}"
-                : $"{resource.Name}={state} (waits for: {string.Join(", ", waitsFor)})";
-        }));
-    }
 }
 
 /// <summary>Extension methods for <see cref="IDistributedApplicationTestingBuilder"/> that set the persistence mode.</summary>

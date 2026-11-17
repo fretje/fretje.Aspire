@@ -81,19 +81,14 @@ jobs:
         run: npm install -g azure-functions-core-tools@4 --allow-scripts=azure-functions-core-tools
 
       - name: Test
-        env:
-          DCP_DIAGNOSTICS_LOG_FOLDER: ${{ github.workspace }}/aspire-dcp-diagnostics
-          DCP_DIAGNOSTICS_LOG_LEVEL: debug
-        run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
+        run: dotnet test tests/fretje.Aspire.Hosting.IntegrationTests/fretje.Aspire.Hosting.IntegrationTests.csproj -c Release --no-build -p:XunitParallelizationMode=None --report-xunit-trx --results-directory "${{ github.workspace }}/TestResults"
 
       - name: Upload test results
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
           name: test-results-integration
-          path: |
-            TestResults/**/*.trx
-            aspire-dcp-diagnostics
+          path: TestResults/**/*.trx
           if-no-files-found: ignore
 
   pack:
