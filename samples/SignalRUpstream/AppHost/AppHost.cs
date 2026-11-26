@@ -16,7 +16,7 @@ var signalr = builder
         .WithPersistentLifetime());
 
 var functions = builder
-    .AddAzureFunctionsProject<Projects.SignalRUpstream_Functions>("functions")
+    .AddAzureFunctionsProject("functions", "../Functions")
     .WithHostStorage(storage)
     .WithEnvironment("AzureSignalRConnectionString", signalr)
     .WaitFor(signalr);
@@ -25,7 +25,7 @@ signalr.WithUpstreamFunctionsProject(functions);
 
 if (builder.Configuration.GetValue("IncludeClientProjects", defaultValue: true))
 {
-    builder.AddProject<Projects.SignalRUpstream_Client>("client")
+    builder.AddDotnetProject("client", "../Client")
         .WithReference(functions)
         .WaitFor(functions);
 }

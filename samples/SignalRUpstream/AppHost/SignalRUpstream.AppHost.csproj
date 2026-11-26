@@ -1,5 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk">
-  <Sdk Name="fretje.NET.Sdk" />
+﻿<Project Sdk="fretje.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" IncludeAssets="runtime;compile;build"/>
     <PackageReference Include="Aspire.Hosting.Azure.Functions" />
+    <PackageReference Include="Aspire.Hosting.Dotnet" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\fretje.Aspire.Hosting.Azure.SignalR\fretje.Aspire.Hosting.Azure.SignalR.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\Functions\SignalRUpstream.Functions.csproj" />
-    <ProjectReference Include="..\Client\SignalRUpstream.Client.csproj" />
   </ItemGroup>
 
 </Project>

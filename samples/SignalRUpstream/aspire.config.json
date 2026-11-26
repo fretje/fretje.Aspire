@@ -1,0 +1,5 @@
+{
+  "appHost": {
+    "path": "AppHost/SignalRUpstream.AppHost.csproj"
+  }
+}

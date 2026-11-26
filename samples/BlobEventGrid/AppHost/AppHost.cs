@@ -13,7 +13,7 @@ var blobs = storage
 
 // Azure Functions with blob EventGrid trigger
 var functions = builder
-    .AddAzureFunctionsProject<Projects.BlobEventGrid_Functions>("functions")
+    .AddAzureFunctionsProject("functions", "../Functions")
     .WithHostStorage(storage);
 
 // Event Grid emulator
@@ -36,7 +36,7 @@ var blobsProxy = builder
 if (builder.Configuration.GetValue("IncludeClientProjects", defaultValue: true))
 {
     builder
-        .AddProject<Projects.BlobEventGrid_Client>("client")
+        .AddDotnetProject("client", "../Client")
         .WithReference(blobsProxy)
         .WaitFor(blobsProxy);
 }
